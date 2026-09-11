@@ -1,0 +1,11 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
