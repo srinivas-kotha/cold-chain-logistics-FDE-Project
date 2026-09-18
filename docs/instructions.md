@@ -75,3 +75,49 @@ az network public-ip update `
   --name $PIP_NAME `
   --allocation-method Static
 ```
+
+### Step 5: Install Microsoft ODBC Driver 18 for SQL Server
+
+https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver17#download-for-windows
+
+## Verify:
+
+```powershell
+.\.venv\Scripts\python.exe -c "import pyodbc; print(pyodbc.drivers())"
+
+```
+
+### Step 6: Run ingest_legacy_data.py file
+
+```powershell
+python scripts\ingest_legacy_data.py
+
+```
+
+### Step 7: Connecting to the data
+
+We need to query the database
+
+- Download : https://github.com/microsoft/azuredatastudio
+  - https://learn.microsoft.com/en-us/previous-versions/azure-data-studio/download-azure-data-studio?tabs=win-install%2Cwin-user-install%2Credhat-install%2Cwindows-uninstall%2Credhat-uninstall
+- The recommendation is to use VS code extension : "SQL Server (mssql)" by microsoft
+  - Click on icon that looks like server or refrigarator, not the one with cylinder
+  - Add connection
+  - Fill the below :
+  ```
+  Profile Name: legacy-mssql
+  Server name*: localhost
+  Port: 1433
+  Trust server certificate: 🟩 Check this box / turn it ON (Crucial for Docker)
+  Authentication type*: SQL Login
+  User name*: sa
+  Password*: FdeEnterprisePass123!
+  Save Password: 🟩 Check this box
+  Database name: Type master (or leave it on "Select a database")
+  Encrypt: ⚠️ Change this from Mandatory to Optional (or False)
+  ```
+
+# Virtual Machine Details:
+
+Operating system: Linux (ubuntu 22.04)
+Size: Standard D2s v3 (2 vcpus, 8 GiB memory)
