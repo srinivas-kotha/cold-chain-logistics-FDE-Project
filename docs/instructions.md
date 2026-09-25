@@ -4,6 +4,8 @@ This guide walks through preparing the source dataset, connecting to the SQL Ser
 
 ---
 
+# Phase 0
+
 ## 1. Prerequisites & Source Data
 
 - **Source Dataset**: Locate and prepare the file at `data\source\data.txt`.
@@ -117,7 +119,38 @@ We need to query the database
   Encrypt: ⚠️ Change this from Mandatory to Optional (or False)
   ```
 
-# Virtual Machine Details:
+### Virtual Machine Details:
 
 Operating system: Linux (ubuntu 22.04)
 Size: Standard D2s v3 (2 vcpus, 8 GiB memory)
+
+# Phase 1
+
+## SOP Ingestion
+
+- https://app.pinecone.io/ > get api key
+- Use it in .env
+- run python scripts\ingest_sop_pinecone.py
+
+# Phase 2
+
+## Data Security
+
+- Click on file : scripts\setup_security_and_view.sql
+- VS-code will show you Start button directly on top else run like we were running the commands previously.
+- Once done, create a new connection now with Agent-Profile
+
+```
+* Profile Name: agent-fde-ro
+* Connection Group: Leave it on <Default>
+* Input type: Select Parameters (Do not click "Load from Connection String", "Browse Azure", or "Browse Fabric")
+* Server name*: localhost
+* Port: 1433
+* Trust server certificate: 🟩 Check this box / Turn it ON
+* Authentication type*: SQL Login
+* User name*: USR_FDE_RO
+* Password*: AgentPassword2026!
+* Save Password: 🟩 Check this box / Turn it ON
+* Database name: Type master (or click "Select a database" and select master)
+* Encrypt: Change this from Mandatory to Optional (or False)
+```
