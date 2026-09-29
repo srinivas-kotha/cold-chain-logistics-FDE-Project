@@ -154,3 +154,13 @@ Size: Standard D2s v3 (2 vcpus, 8 GiB memory)
 * Database name: Type master (or click "Select a database" and select master)
 * Encrypt: Change this from Mandatory to Optional (or False)
 ```
+
+Connect and test below commands :
+
+```
+-- TEST 1: This SHOULD work perfectly (Access to clean view)
+SELECT TOP 5 * FROM FDE_VIEWS.VW_ACTIVE_FLEET;
+
+-- TEST 2: This SHOULD fail instantly (Access to raw legacy table is DENIED)
+SELECT TOP 5 * FROM dbo.TBL_SC_FLEET_HIST_RAW;
+```
